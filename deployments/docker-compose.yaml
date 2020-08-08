@@ -8,37 +8,38 @@ services:
             - 80:80
         container_name: router
         environment:
-            - NOXY_DEFAULT_HOST=react
+            - NOXY_DEFAULT_HOST=ui
             - NOXY_DEFAULT_PORT=3030
             - NOXY_DEFAULT_WS=1
             - NOXY_API_FRONT=/api
-            - NOXY_API_HOST=rest
+            - NOXY_API_HOST=server
             - NOXY_API_PORT=9000
         networks:
-            - react_skeleton_network
+            - react_dashboard_network
 
-    react:
-        image: ${REACT_IMAGE_NAME}:${IMAGE_TAG}
-        container_name: react
+    ui:
+        image: ${UI_IMAGE_NAME}:${IMAGE_TAG}
+        container_name: ui
         expose:
             - 3030
         ports:
             - 3030:3030
         volumes:
-            - ../../web/reactjs/src:/opt/src
+            - ../ui/src:/opt/src
         networks:
-            - react_skeleton_network
+            - react_dashboard_network
 
-    rest:
-        image: ${REST_IMAGE_NAME}:${IMAGE_TAG}
-        command: ["/usr/local/bin/goreact","start","noui","-p","9000"]
-        container_name: rest
+    server:
+        image: ${SERVER_IMAGE_NAME}:${IMAGE_TAG}
+        container_name: server
         expose:
             - 9000
         ports:
             - 9000:9000
+        volumes: 
+            - ../server/src:/opt/src
         networks:
-            - react_skeleton_network
+            - react_dashboard_network
 
 networks:
-    react_skeleton_network:
+    react_dashboard_network:
