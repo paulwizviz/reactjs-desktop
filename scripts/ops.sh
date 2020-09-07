@@ -1,8 +1,9 @@
 #!/bin/bash
 
-export UI_IMAGE_DEV=openconsentia/reatcjs-ui-dev
-export UI_IMAGE_PROD=openconsentia/reactjs-ui-prod
-export SERVER_IMAGE=openconsentia/reactjs-server
+## Change image name
+export UI_IMAGE_DEV=paulwizviz/reatcjs-ui-dev
+export UI_IMAGE_PROD=paulwizviz/reactjs-ui-prod
+export SERVER_IMAGE=paulwizviz/reactjs-server
 export IMAGE_TAG=current
 
 COMMAND="$1"

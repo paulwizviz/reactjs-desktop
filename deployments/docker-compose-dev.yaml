@@ -15,7 +15,7 @@ services:
             - NOXY_API_HOST=server-dev
             - NOXY_API_PORT=9000
         networks:
-            - openconsentia_react_dashboard_network
+            - paulwizviz_react_desktop_network
 
     ui-dev:
         image: ${UI_IMAGE_DEV}:${IMAGE_TAG}
@@ -31,7 +31,7 @@ services:
             - ../ui/.eslintrc.json:/opt/.eslintrc.json
             - ../ui/.babelrc:/opt/.babelrc
         networks:
-            - openconsentia_react_dashboard_network
+            - paulwizviz_react_desktop_network
 
     server-dev:
         image: ${SERVER_IMAGE}:${IMAGE_TAG}
@@ -43,7 +43,7 @@ services:
         volumes: 
             - ../server/src:/opt/src
         networks:
-            - openconsentia_react_dashboard_network
+            - paulwizviz_react_desktop_network
 
 networks:
-    openconsentia_react_dashboard_network:
+    paulwizviz_react_desktop_network:
