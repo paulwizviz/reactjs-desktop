@@ -8,7 +8,7 @@ export IMAGE_TAG=current
 COMMAND="$1"
 SUBCOMMAND="$2"
 
-message="Usage: $0 [build [dev | prod] | clean | run [dev | prod] | status | stop]"
+message="Usage: $0 build [dev | prod] | clean | run [dev | prod] | status | stop [dev | prod]"
 
 if [ -z "$COMMAND" ]; then
     echo $message
@@ -85,38 +85,18 @@ function clean(){
 
 case $COMMAND in
     "build")
-        if [ $# -ne 2 ]; then
-            echo "Usage: $0 build [dev | prod]"
-            exit 1
-        fi
         build $SUBCOMMAND
         ;;
-    "clean")
-        if [ $# -ne 1 ]; then
-            echo "Usage: $0 clean"
-            exit 1
-        fi
+    "clean") 
         clean
         ;;
     "run")
-        if [ $# -ne 2 ]; then
-            echo "Usage: $0 run [dev | prod]"
-            exit 1
-        fi
         run $SUBCOMMAND
         ;;
     "status")
-        if [ $# -ne 1 ]; then
-            echo "Usage: $0 status"
-            exit 1
-        fi
         status
         ;;
     "stop")
-        if [ $# -ne 2 ]; then
-            echo "Usage: $0 stop [dev | prod]"
-            exit 1
-        fi
         stop $SUBCOMMAND
         ;;
     *)

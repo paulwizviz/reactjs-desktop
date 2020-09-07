@@ -12,33 +12,32 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// React
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
+import { Route } from 'react-router-dom';
 
-import { makeStyles } from '@material-ui/core/styles';
+// Others
+import PropTypes from 'prop-types';
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        padding: theme.spacing(4)
-    }
-}));
-
-const Dashboard = () => {
-
-    const classes = useStyles();
+const RouteWithLayout = props => {
+    const { layout: Layout, component: Component, ...rest } = props;
 
     return (
-        <div className={classes.root}>
-            <Grid container spacing={1}>
-                <Grid item lg={3} sm={6} xl={3} xs={12}>
-                    Grid1
-                </Grid>
-                <Grid item xs={12}>
-                    grid2
-                </Grid>
-            </Grid>
-        </div>
+        <Route
+            {...rest}
+            render={matchProps => (
+                <Layout>
+                    <Component {...matchProps} />
+                </Layout>
+            )}
+        />
     );
 };
 
-export default Dashboard;
+RouteWithLayout.propTypes = {
+    component: PropTypes.any.isRequired,
+    layout: PropTypes.any.isRequired,
+    path: PropTypes.string
+};
+
+export default RouteWithLayout;

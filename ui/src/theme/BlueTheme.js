@@ -12,4 +12,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export { default } from './NotFound';
+import React from 'react';
+
+import PropTypes from 'prop-types';
+
+import { ThemeProvider, createMuiTheme } from '@material-ui/core';
+
+import { blue } from '@material-ui/core/colors';
+
+const theme = createMuiTheme({
+    palette: {
+        primary: blue,
+        type: 'light'
+    },
+    typography: {
+        useNextVariants: true,
+    },
+});
+
+const BlueTheme = (props) => {
+    const { children } = props;
+    return (
+        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+    );
+};
+
+BlueTheme.propTypes = {
+    children: PropTypes.object
+};
+
+export default BlueTheme;

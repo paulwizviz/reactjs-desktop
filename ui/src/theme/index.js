@@ -12,23 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { connect } from 'react-redux';
-import { Auth } from '../components';
-import { fetchAuthUser } from '../actions';
-
-const mapStateToProps = (store) => {
-    return {
-        authState: store.authReducer
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        authenticate: async (userName, password) => await fetchAuthUser(dispatch, userName, password)
-    };
-};
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Auth);
+export { default as RedTheme } from './RedTheme';
+export { default as BlueTheme } from './BlueTheme';
+export { default as applyTheme } from './applyTheme';

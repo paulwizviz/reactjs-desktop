@@ -13,29 +13,19 @@
 // limitations under the License.
 
 import React from 'react';
-import { Router } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
 
-import { ThemeProvider } from '@material-ui/styles';
-
-import { createBrowserHistory } from 'history';
-const browserHistory = createBrowserHistory();
-
 import { Routes } from '../Routes';
-import theme from './theme';
+import {BlueTheme, applyTheme} from '../theme';
 import {store} from '../modules/store';
 
-export default class App extends React.Component {
-    render() {
-        return (
-            <Provider store={store}>
-                <ThemeProvider theme={theme}>
-                    <Router history={browserHistory}>
-                        <Routes />
-                    </Router>
-                </ThemeProvider>
-            </Provider>
-        );
-    }
-}
+const App = () => {
+    return (
+        <Provider store={store}>
+            <Routes />
+        </Provider>
+    );
+};
+
+export default applyTheme(BlueTheme, App);
