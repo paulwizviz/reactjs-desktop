@@ -12,45 +12,38 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// React
 import React from 'react';
 import PropTypes from 'prop-types';
-
-// Materials UI
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
+import { Typography } from '@material-ui/core';
 
-// Local components
-import Topbar from './Topbar';
-import Footer from './Footer';
-
-// Code body
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
     root: {
-        paddingTop: 64,
-        height: '100%'
-    },
-    content: {
-        paddingTop: 64
+        paddingTop: 100,
+        padding: theme.spacing(4)
     }
 }));
 
-const MinimalLayout = (props) => {
-    const { children } = props;
+const Footer = props => {
+    const { className, ...rest } = props;
 
     const classes = useStyles();
 
     return (
-        <div className={classes.root}>
-            <Topbar />
-            <main className={classes.content}>{children}</main>
-            <Footer/>
+        <div
+            {...rest}
+            className={clsx(classes.root, className)}
+        >
+            <Typography variant="body1">
+        &copy;{' '}2020 [reatjs-desktop] Authors
+            </Typography>
         </div>
     );
 };
 
-MinimalLayout.propTypes = {
-    children: PropTypes.node,
+Footer.propTypes = {
     className: PropTypes.string
 };
 
-export default MinimalLayout;
+export default Footer;

@@ -12,21 +12,4 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import axios from 'axios';
-
-const fetchAuthUser = async (dispatch, userName, password) => {
-    try{
-        const resp = await axios.post('/api/auth',{'id':userName, 'secrets':password}, {timeout: 1000});
-        return dispatch({
-            type: 'AUTH_USER_FULFILLED',
-            payload: resp.data
-        });
-    } catch (err){
-        return dispatch({
-            type: 'AUTH_USER_REJECTED',
-            payload: err
-        });
-    }
-};
-
-export default fetchAuthUser;
+export { default } from './Footer';

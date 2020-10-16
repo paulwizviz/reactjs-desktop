@@ -14,17 +14,12 @@
 
 import React from 'react';
 
-import { Provider } from 'react-redux';
-
 import { Routes } from '../Routes';
 import {BlueTheme, applyTheme} from '../theme';
-import {store} from '../modules/store';
 
 const App = () => {
     return (
-        <Provider store={store}>
-            <Routes />
-        </Provider>
+        <Routes />
     );
 };
 

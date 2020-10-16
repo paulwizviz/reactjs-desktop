@@ -19,7 +19,7 @@ import { Route } from 'react-router-dom';
 // Others
 import PropTypes from 'prop-types';
 
-const RouteWithLayout = props => {
+const RouteWithLayout = (props) => {
     const { layout: Layout, component: Component, ...rest } = props;
 
     return (

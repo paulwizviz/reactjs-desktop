@@ -35,7 +35,7 @@ const Footer = props => {
             className={clsx(classes.root, className)}
         >
             <Typography variant="body1">
-        &copy;{' '} Paul Sitoh. 2019
+        &copy;{' '} 2020 [reatjs-desktop] Authors
             </Typography>
         </div>
     );

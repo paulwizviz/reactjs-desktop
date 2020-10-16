@@ -43,16 +43,12 @@ npm install --save react@16.13.1
 npm install --save react-dom@16.13.1
 npm install --save react-redux@7.2.1
 npm install --save react-router-dom@5.2.0
-npm install --save redux@4.0.5 # redux
-npm install --save redux-logger@3.0.6
-npm install --save redux-promise-middleware@6.1.2
-npm install --save redux-thunk@2.3.0
 
 ## Others
 npm install --save axios@0.20.0
 npm install --save classnames@2.2.6
 npm install --save clsx@1.1.1
-npm install --save history@5.0.0
+npm install --save history@4.10.1
 npm install --save prop-types@15.7.2
 
 # Auditing

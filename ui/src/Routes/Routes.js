@@ -14,25 +14,27 @@
 
 // React
 import React from 'react';
-import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
-
+import { Router, Switch, Redirect } from 'react-router-dom';
 
 import RouteWithLayout from './RouteWithLayout';
 
 import {
+    Auth as AuthView,
     Dashboard as DashboardView,
     NotFound as NotFoundView,
     MinimalLayout,
     MainLayout as MainLayoutContainer,
-    Auth as AuthContainer,
 } from '../modules';
+
+import { createBrowserHistory } from 'history';
+const browserHistory = createBrowserHistory();
 
 const Routes = () => {
     return (
-        <Router>
+        <Router history={browserHistory}>
             <Switch>        
-                <Redirect exact from="/" to="/dashboard"/>
-                <RouteWithLayout component={AuthContainer} exact layout={MinimalLayout} path="/auth"/>
+                <Redirect exact from="/" to="/auth"/>
+                <RouteWithLayout component={AuthView} exact layout={MinimalLayout} path="/auth"/>
                 <RouteWithLayout component={DashboardView} exact layout={MainLayoutContainer} path="/dashboard"/>
                 <RouteWithLayout component={NotFoundView} exact layout={MinimalLayout} path="/not-found"/>
                 <Redirect to="/not-found" />

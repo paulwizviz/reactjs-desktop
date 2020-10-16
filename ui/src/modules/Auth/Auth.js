@@ -12,67 +12,124 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useReducer} from 'react';
+
 import PropTypes from 'prop-types';
 
-import { withStyles } from '@material-ui/core/styles';
-
+import { makeStyles } from '@material-ui/core/styles';
 import { Grid, TextField, Button } from '@material-ui/core';
 
-const useStyles = theme => ({
-    margin: {
-        margin: theme.spacing.unit * 2,
+import axios from 'axios';
+
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
     },
-    padding: {
-        padding: theme.spacing.unit
+    paper: {
+        marginTop: 20,
+        padding: theme.spacing(2),
+        textAlign: 'center',
+        color: theme.palette.text.secondary
     }
-});
+}));
 
 
-const Auth = props =>{
-    const {classes, authenticate, history, authState} = props;
+const initialState = {
+    loading: true,
+    error: false,
+    user:{
+        id: null,
+        secrets: '',
+    }
+};
+
+const reducer = (state = initialState, action) =>{
+    switch(action.type){
+    case 'AUTH_SUCCESS':
+        return {
+            ...state,
+            loading: false,
+            error: false,
+            user: action.payload
+        };
+    case 'AUTH_ERROR':
+        return {
+            ...state,
+            loading: false,
+            error: true,
+        };
+    default:
+        return state;
+    }
+};
+
+const authenticate = async (dispatch, userName, password) => {
+    const resp = await axios.post('/api/auth',{'id':userName, 'secrets':password}, {timeout: 1000});
+    try{
+        dispatch({
+            type: 'AUTH_SUCCESS',
+            payload: resp.data
+        });
+    }catch(err){
+        dispatch({
+            type: 'AUTH_ERROR',
+            payload: resp.data
+        });
+    }
+};
+
+const Auth = (props) =>{
+
+    const {history} = props;
+
+    const classes = useStyles();
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    
+    const [state, dispatch] = useReducer(reducer, initialState);
 
     useEffect(()=>{
-        if (authState.user.id !== null ){
+        if ((!state.error) & (!state.loading)){
             history.push('/dashboard');
-        } 
-    });
+        }
+    },[state.user]);
 
     return (
         <div className={classes.root}>
-            <Grid container spacing={8} alignItems="flex-end">
-                <Grid item md={true} sm={true} xs={true}>
+            <Grid container 
+                spacing={2}
+                alignItems="center"
+                justify="center"
+                direction="column">
+                <Grid item xs={6}>
                     <TextField onChange={e => setUsername(e.target.value)} value={username} id="username" label="Username" type="email" fullWidth autoFocus required />
                 </Grid>
-            </Grid>
-            <Grid container spacing={8} alignItems="flex-end">
-                <Grid item md={true} sm={true} xs={true}>
+                <Grid item xs={6}>
                     <TextField onChange={e => setPassword(e.target.value)} value={password} id="password" label="Password" type="password" fullWidth required />
                 </Grid>
-            </Grid>
-            <Grid container justify="center" style={{ marginTop: '10px' }}>
-                <Button onClick={
-                    async () => {
-                        if (username !== '' && password !== ''){
-                            await authenticate(username, password);
+                <Grid item xs={6}>
+                    <Button onClick={
+                        async () => {
+                            if (username !== '' && password !== ''){
+                                await authenticate(dispatch, username, password);
+                            }
                         }
                     }
-                }
-                variant="outlined" 
-                color="primary" 
-                style={{ textTransform: 'none' }}>Login</Button>
+                    variant="outlined" 
+                    color="primary" 
+                    style={{ textTransform: 'none' }}>Login</Button>
+                </Grid>
+               
             </Grid>
         </div>
     );
 };
 
 Auth.propTypes = {
-    classes: PropTypes.object.isRequired,
+    classes: PropTypes.object,
     history: PropTypes.object.isRequired,
-    authState: PropTypes.object.isRequired,
-    authenticate: PropTypes.func.isRequired
 };
 
-export default withStyles(useStyles)(Auth);
+export default Auth;
